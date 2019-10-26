@@ -12,6 +12,9 @@ struct ContentView: View {
     @State private var checkAmount = ""
     @State private var numberOfPeople = 2
     @State private var tipPercentage = 2
+    private var isZeroTipSelected : Bool{
+        return tipPercentage == 4
+    }
     
     private var splitAmount : Double{
         let peopleCount = Double(numberOfPeople + 2)
@@ -51,10 +54,13 @@ struct ContentView: View {
                 }
                 Section(header : Text("Total amount to be paid")){
                     Text("$\(totalAmount, specifier : "%.2f")")
+                        .foregroundColor(self.isZeroTipSelected ? .red : .black)
                 }
                 Section(header : Text("Amount per person")){
                     Text("$\(splitAmount, specifier: "%.2f")")
                 }
+                
+                
             }.navigationBarTitle("Price Split")
         }
     }
